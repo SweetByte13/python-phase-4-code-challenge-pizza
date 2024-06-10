@@ -24,6 +24,21 @@ api = Api(app)
 def index():
     return "<h1>Code challenge</h1>"
 
+class Restaurants(Resource):
+    def get(self):
+        restaurants = [restaurant.to_dict() for restaurant in Restaurant.query.all()]
+        return make_response(restaurants)
+    
+    
+api.add_resource(Restaurants,'/restaurants')
+
+class RestaurantById(Resource):
+    def get(self, id):
+        pass
+    
+    
+api.add_resource(RestaurantById, '/restaurants/<int:id>')
+
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
